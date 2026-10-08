@@ -88,13 +88,28 @@ img, video { display: block; max-width: 100%; height: auto; }
   font-size: 13px; line-height: 1.5; color: var(--sheet-dim);
 }
 
-/* hero */
+/* hero: the rig drawing is the background (assets/rig-dark.webp, the
+   business-plan figure recoloured for the dark page); the veil keeps the
+   copy legible over it */
 .hero {
   position: relative; min-height: 100svh; box-sizing: border-box;
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end;
-  gap: clamp(32px, 5vw, 80px);
+  display: grid; grid-template-columns: 1fr; align-items: end;
   padding: 100px var(--gutter) clamp(40px, 8vh, 96px);
   overflow: hidden; isolation: isolate;
+}
+.hero .poster {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  display: flex; justify-content: flex-end; align-items: center;
+  padding: 72px calc(var(--gutter) * .5) 0 0;
+}
+.hero .poster img {
+  width: min(64vw, 118vh); max-width: 1180px; height: auto; opacity: .92;
+}
+.hero .veil {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(11,13,16,.5) 0%, rgba(11,13,16,0) 28%, rgba(11,13,16,0) 58%, rgba(11,13,16,.9) 100%),
+    linear-gradient(90deg, rgba(11,13,16,.75) 0%, rgba(11,13,16,.25) 45%, rgba(11,13,16,0) 70%);
 }
 .hero::before {
   /* the faint grid of the rig drawing, carried onto the page */
@@ -112,7 +127,6 @@ img, video { display: block; max-width: 100%; height: auto; }
   font-variation-settings: 'wdth' 82; text-wrap: balance;
 }
 .hero .lede { margin-top: 22px; }
-.hero-sheet { align-self: center; margin-bottom: 8px; }
 .hero .cue {
   position: absolute; right: var(--gutter); bottom: 20px;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -216,13 +230,25 @@ img, video { display: block; max-width: 100%; height: auto; }
 }
 .foot .copybtn:hover { color: var(--ink); border-color: var(--dim); }
 .foot .copybtn.done { color: var(--tint); border-color: var(--tint); }
+.foot .reg {
+  grid-column: 1 / -1; margin: 32px 0 0; padding: 18px 0 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 32px;
+  border-top: 1px solid var(--line);
+}
+.foot .reg > div { display: grid; gap: 3px; }
+.foot .reg dt { font: 12px/1.4 var(--mono); color: var(--muted); }
+.foot .reg dd { margin: 0; font-size: 13px; line-height: 1.5; color: var(--dim); overflow-wrap: anywhere; }
 .foot .fine { grid-column: 1 / -1; margin: 24px 0 0; font: 12px/1.5 var(--mono); color: var(--muted); }
 
 /* narrow screens */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; align-items: start; padding-top: 88px; }
-  .hero .copy { order: 1; }
-  .hero-sheet { order: 2; max-width: 440px; margin-bottom: 40px; }
+  .hero { min-height: 92svh; padding-top: 88px; }
+  .hero .poster { align-items: flex-start; justify-content: center; padding: 84px 0 0; }
+  .hero .poster img { width: min(96vw, 60vh); opacity: .8; }
+  .hero .veil {
+    background:
+      linear-gradient(180deg, rgba(11,13,16,.2) 0%, rgba(11,13,16,0) 20%, rgba(11,13,16,.6) 45%, rgba(11,13,16,.96) 70%);
+  }
   .hero .cue { display: none; }
   .cols, .foot { grid-template-columns: 1fr; }
   .timeline { grid-template-columns: 1fr; gap: 0; }
