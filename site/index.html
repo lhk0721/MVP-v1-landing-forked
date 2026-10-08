@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rack Labs</title>
+  <meta name="description" content="파워랙에 붙이는 3D 동작 분석 장치 RackTracker, 신경망을 3D 장면으로 보여 주는 pipeplot, Claude Code용 하네스 agent-workflow-kit를 만드는 Rack Labs입니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rack Labs" />
+  <meta property="og:description" content="The rack that measures the lift. RackTracker, pipeplot, agent-workflow-kit." />
+  <meta property="og:url" content="https://racktracker.dev/" />
+  <meta property="og:image" content="https://racktracker.dev/assets/rig.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3.5' y='2.5' width='9' height='11' fill='none' stroke='%239aa4b2'/%3E%3Ccircle cx='3.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='12.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='8' cy='13.5' r='1.7' fill='%23e6eaf0'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="bar" id="bar">
+    <a class="brand" href="#top">Rack Labs</a>
+    <nav aria-label="페이지 안내">
+      <a href="#racktracker">RackTracker</a>
+      <a href="#pipeplot">pipeplot</a>
+      <a href="#agent-workflow-kit">agent-workflow-kit</a>
+      <a href="#contact">연락처</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="copy">
+        <p class="kicker">파워랙 고정형 3D 동작 분석</p>
+        <h1 id="hero-title">The rack that<br>measures the lift.</h1>
+        <p class="lede">RackTracker는 헬스장 파워랙에 덧붙이는 3D 동작 분석 장치입니다. 랙에 고정한 카메라 3대가 같은 순간을 찍고, 랙 옆의 소형 컴퓨터가 관절의 3D 위치를 복원해 세트마다 역학 피드백을 돌려줍니다.</p>
+        <div class="cta">
+          <a class="btn" href="#racktracker">자세히 보기</a>
+          <a class="btn ghost" href="mailto:dlgusrb6546@racktracker.dev">메일 보내기</a>
+        </div>
+      </div>
+      <figure class="sheet hero-sheet">
+        <img src="assets/rig.webp" width="501" height="423" alt="파워랙 와이어프레임 안에 복원된 3D 관절 스켈레톤과 바벨, 랙 바깥의 카메라 세 대" />
+        <figcaption>그림 1. 랙 좌표계 위의 3D 관절 복원.</figcaption>
+      </figure>
+      <div class="cue" aria-hidden="true"><i></i>scroll</div>
+    </section>
+
+    <section class="wing" id="racktracker" aria-labelledby="rt-title">
+      <div class="head">
+        <h2 id="rt-title">RackTracker</h2>
+        <p>파워랙에 붙이는 3D 동작 분석 장치</p>
+      </div>
+      <div class="cols">
+        <div class="text">
+          <p class="lede">파워랙에 고정한 글로벌 셔터 카메라 3대가 전기 신호 한 줄로 같은 순간을 찍습니다. 각 영상에서 찾은 관절을 세 방향에서 교차하되, 한 방향이 가려지면 나머지로 살려 cm 단위 3D 좌표를 계산합니다.</p>
+          <p>세트마다 무게중심 이동, 좌우 비대칭, 상체 기울기, 스쿼트 깊이를 기록해 회원과 트레이너에게 돌려줍니다. 판정 기준은 회원마다 신체 비율로 따로 잡습니다.</p>
+          <p>촬영 조건이 늘 같아 지난 회차와 새 세션을 같은 기준으로 비교합니다. 처리는 랙 옆 컴퓨터가 폐쇄망에서 끝내므로 회원 영상이 헬스장 밖으로 나가지 않습니다.</p>
+          <dl class="facts">
+            <div><dt>카메라 3대 촬영 시점 차이</dt><dd>0.12 ms<small>로직 애널라이저 실측</small></dd></div>
+            <div><dt>카메라 3대로 복원한 관절 비율</dt><dd>70%<small>CMU Panoptic 기준. 일반 삼각측량은 40%</small></dd></div>
+            <div><dt>관절 위치 오차</dt><dd>3 cm대<small>카메라 2대일 때와 같은 수준</small></dd></div>
+            <div><dt>처리 위치</dt><dd>랙 옆 NVIDIA Jetson<small>폐쇄망 처리. 영상 외부 전송 없음</small></dd></div>
+          </dl>
+        </div>
+        <div class="figs">
+          <figure class="sheet">
+            <img src="assets/demo.webp" width="322" height="292" alt="스쿼트 하단 자세 위에 관절 각도와 부하 표시가 겹쳐진 분석 화면" />
+            <figcaption>그림 2. 관절 부하와 무게중심 분석 화면.</figcaption>
+          </figure>
+          <figure class="sheet">
+            <img src="assets/hardware.webp" width="200" height="190" alt="카메라 모듈 두 대와 직접 만든 트리거 보드가 연결된 엣지 리그" />
+            <figcaption>그림 3. 트리거 보드와 Jetson 엣지 리그.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <ol class="timeline" aria-label="개발 일정">
+        <li><span class="when">지금</span><span class="what">카메라 3대 동시 촬영, 캘리브레이션, 3D 관절 복원, 세트 자동 기록까지 시제품으로 동작</span></li>
+        <li><span class="when">2026년 4분기</span><span class="what">마커 기반 모션캡처와 대조 검증</span></li>
+        <li><span class="when">2027년 상반기</span><span class="what">헬스장 파일럿</span></li>
+        <li><span class="when">2027년 하반기</span><span class="what">양산형 전환</span></li>
+      </ol>
+    </section>
+
+    <section class="pp" id="pipeplot" aria-labelledby="pp-title">
+      <div class="poster" aria-hidden="true">
+        <video id="pp-video" autoplay muted loop playsinline disablepictureinpicture preload="metadata" poster="assets/pipeplot-hero.webp">
+          <source src="assets/pipeplot-hero.webm" type="video/webm" />
+          <source src="assets/pipeplot-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="veil" aria-hidden="true"></div>
+      <div class="copy">
+        <p class="kicker">pipeplot</p>
+        <h2 id="pp-title">Neural networks,<br>built layer by layer<br>in walkable space.</h2>
+        <p class="lede">모델마다 페이지가 하나씩 있습니다. 모델 페이지는 실제로 학습된 가중치와 activation을 3D 공간에 세워 보여 주고, 개념 페이지는 한 사람이 개념을 이해해 간 순서대로 장면을 쌓습니다.</p>
+        <p class="lede">지금은 AlexNet, VGG-16, GoogLeNet, ResNet-34 네 모델과 개념 페이지가 있습니다. 앞으로 ML/DL 학습과 커뮤니티의 장으로 넓혀 갑니다.</p>
+        <div class="cta">
+          <a class="btn" href="https://pipeplot.pages.dev" rel="noopener">pipeplot 열기</a>
+          <a class="btn ghost" href="https://pipeplot.pages.dev/#models" rel="noopener">모델 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wing" id="agent-workflow-kit" aria-labelledby="awk-title">
+      <div class="head">
+        <h2 id="awk-title">agent-workflow-kit</h2>
+        <p>Claude Code 저장소용 workflow와 backstop</p>
+      </div>
+      <div class="cols">
+        <div class="text">
+          <p class="lede">요청 하나가 이슈, 브랜치, 관리 문서가 되고, 여러 세션이 git 위에서 동시에 돌아갑니다. 건너뛴 단계는 hook이 잡습니다.</p>
+          <p>문서 저장소는 Markdown으로 두되 에이전트의 context가 작고 정확하게 유지되도록 짰습니다. RackTracker와 pipeplot을 이 위에서 개발하며 얻은 방식을 그대로 공개합니다.</p>
+          <dl class="facts">
+            <div><dt>버전</dt><dd>0.2.13<small>release notes와 함께 갱신</small></dd></div>
+            <div><dt>skill</dt><dd>9개<small>issue-start, post-pr-cleanup, ui-evidence, ko-writing 등</small></dd></div>
+            <div><dt>라이선스</dt><dd>MIT<small>Node 20 이상</small></dd></div>
+          </dl>
+          <div class="cta">
+            <a class="btn" href="https://github.com/lhk0721/agent-workflow-kit" rel="noopener">GitHub에서 보기</a>
+          </div>
+        </div>
+        <div class="figs">
+          <figure class="sheet">
+            <img src="assets/awk-work-unit.png" width="1323" height="520" alt="이슈, 브랜치와 worktree, 관리 문서, 포인터를 거쳐 편집, 검토, 커밋, PR 정리로 이어지는 작업 단위 흐름도" />
+            <figcaption>그림 4. 이슈에서 정리까지의 작업 단위.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot" id="contact">
+    <div class="who">
+      <p class="brand">Rack Labs</p>
+      <p>1인 개발로 시제품을 만들고 있는 하드웨어와 AI 스타트업입니다. 운동을 재는 장치를 만들고, AI와 함께 개발하는 방법을 공개합니다.</p>
+    </div>
+    <dl class="contact">
+      <div><dt>대표</dt><dd>이현규</dd></div>
+      <div><dt>메일</dt><dd><a href="mailto:dlgusrb6546@racktracker.dev">dlgusrb6546@racktracker.dev</a></dd></div>
+      <div><dt>GitHub</dt><dd><a href="https://github.com/lhk0721" rel="noopener">github.com/lhk0721</a></dd></div>
+    </dl>
+    <p class="fine">세 제품 모두 Claude Code로 개발합니다. 2026 Rack Labs</p>
+  </footer>
+
+  <script>
+    // 상단 바: 조금이라도 내려가면 배경이 생긴다
+    (function () {
+      var bar = document.getElementById('bar');
+      function update() { bar.classList.toggle('solid', window.scrollY > 24); }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+    // 움직임 줄이기 설정이면 영상 대신 정지 화면만 둔다
+    (function () {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var v = document.getElementById('pp-video');
+      var img = document.createElement('img');
+      img.src = v.getAttribute('poster'); img.alt = ''; img.decoding = 'async';
+      v.replaceWith(img);
+    })();
+  </script>
+</body>
+</html>
