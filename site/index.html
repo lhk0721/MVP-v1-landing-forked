@@ -162,10 +162,18 @@
           btn.classList.add('done');
           setTimeout(function () { btn.textContent = label; btn.classList.remove('done'); }, 2000);
         };
+        var fallback = function () {
+          // 클립보드를 못 쓰면 주소를 선택 상태로 만들어 Ctrl+C로 복사하게 둔다
+          var link = btn.parentNode.querySelector('a');
+          var range = document.createRange(); range.selectNodeContents(link);
+          var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+          btn.textContent = '주소를 선택했습니다';
+          setTimeout(function () { btn.textContent = label; }, 2000);
+        };
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done, function () { window.prompt('주소를 복사하세요', text); });
+          navigator.clipboard.writeText(text).then(done, fallback);
         } else {
-          window.prompt('주소를 복사하세요', text);
+          fallback();
         }
       });
     })();
