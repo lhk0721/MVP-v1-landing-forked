@@ -192,7 +192,10 @@ img, video { display: block; max-width: 100%; height: auto; }
   position: absolute; inset: 0; z-index: -2;
   background: radial-gradient(70% 55% at 68% 42%, rgba(143, 188, 188, .10), transparent 70%);
 }
-.pp .poster video, .pp .poster img { width: 100%; height: 100%; object-fit: cover; opacity: .9; }
+.pp .poster video, .pp .poster img, .pp .poster canvas.live { width: 100%; height: 100%; object-fit: cover; opacity: .9; }
+.pp .poster canvas.live { position: absolute; inset: 0; pointer-events: none; display: block; }
+.pp .poster .dip { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: var(--bg); }
+.pp .poster video[hidden] { display: none; }
 .pp .veil {
   position: absolute; inset: 0; z-index: -1;
   background:

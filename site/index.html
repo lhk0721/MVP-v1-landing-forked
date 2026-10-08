@@ -83,10 +83,36 @@
 
     <section class="pp" id="pipeplot" aria-labelledby="pp-title">
       <div class="poster" aria-hidden="true">
-        <video id="pp-video" autoplay muted loop playsinline disablepictureinpicture preload="metadata" poster="assets/pipeplot-hero.webp">
-          <source src="assets/pipeplot-hero.webm" type="video/webm" />
-          <source src="assets/pipeplot-hero.mp4" type="video/mp4" />
-        </video>
+        <video id="pp-video" muted loop playsinline disablepictureinpicture preload="none" poster="assets/pipeplot-hero.webp"></video>
+        <script>
+          // The scenes render live (assets/pipeplot-live.js, pipeplot's own
+          // three.js hero) when WebGL is there and motion is allowed; the
+          // recorded loop is the fallback. Two rungs for the video, as on
+          // pipeplot: 1080p for wide screens, 720p for narrow ones.
+          (function () {
+            var v = document.getElementById('pp-video');
+            var rung = matchMedia('(max-width: 900px)').matches ? 'pipeplot-hero' : 'pipeplot-hero-1080';
+            [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (t) {
+              var s = document.createElement('source');
+              s.src = 'assets/' + rung + '.' + t[0]; s.type = t[1]; v.appendChild(s);
+            });
+            var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var webgl = false;
+            try { var c = document.createElement('canvas'); webgl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) {}
+            var playVideo = function () { v.hidden = false; v.preload = 'auto'; v.play().catch(function () {}); };
+            if (still) return;                 // the poster still stands alone
+            if (!webgl) { playVideo(); return; }
+            import('./assets/pipeplot-live.js')
+              .then(function (m) {
+                return m.mountHeroLive(v.parentNode, {
+                  force: /hero=live/.test(location.hash),   // skip the frame-time gate, for checks
+                  onLive: function () { v.pause(); v.hidden = true; },
+                  onFallback: playVideo
+                });
+              })
+              .catch(function (e) { console.warn('[pipeplot hero] live path failed:', e); playVideo(); });
+          })();
+        </script>
       </div>
       <div class="veil" aria-hidden="true"></div>
       <div class="copy">
