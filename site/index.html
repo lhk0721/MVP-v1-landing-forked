@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rack Labs</title>
-  <meta name="description" content="Rack Labs builds RackTracker, a 3D motion-analysis device that mounts on a gym power rack; pipeplot, neural networks as explorable 3D scenes; and agent-workflow-kit, a harness for repositories where Claude Code does the work." />
+  <meta name="description" content="Rack Labs is an AI-native startup in Seoul. Our main business is RackTracker, a 3D motion-analysis product for gyms: a hardware edge device and its software, mounted on the power rack. We also publish open-source tools, pipeplot and agent-workflow-kit." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rack Labs" />
-  <meta property="og:description" content="The rack that measures the lift. RackTracker, pipeplot, agent-workflow-kit." />
+  <meta property="og:description" content="An AI-native startup that ships hardware. RackTracker, and the open-source tools pipeplot and agent-workflow-kit." />
   <meta property="og:url" content="https://racktracker.dev/" />
   <meta property="og:image" content="https://racktracker.dev/assets/rig.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3.5' y='2.5' width='9' height='11' fill='none' stroke='%239aa4b2'/%3E%3Ccircle cx='3.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='12.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='8' cy='13.5' r='1.7' fill='%23e6eaf0'/%3E%3C/svg%3E" />
@@ -21,8 +21,9 @@
     <a class="brand" href="#top">Rack Labs</a>
     <nav aria-label="Sections">
       <a href="#racktracker">RackTracker</a>
-      <a href="#pipeplot">pipeplot</a>
-      <a href="#agent-workflow-kit">agent-workflow-kit</a>
+      <a href="#prototype">Prototype</a>
+      <a href="/business-plan/">Business plan</a>
+      <a href="#open-source">Open source</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -34,12 +35,12 @@
       </div>
       <div class="veil" aria-hidden="true"></div>
       <div class="copy">
-        <p class="kicker">3D motion analysis, mounted on the power rack</p>
-        <h1 id="hero-title">The rack that<br>measures the lift.</h1>
-        <p class="lede">RackTracker is a 3D motion-analysis device that mounts on a gym power rack. Three cameras fixed to the rack fire at the same instant, and a small computer beside the rack rebuilds every joint in 3D and returns biomechanical feedback after each set.</p>
+        <p class="kicker">Rack Labs, Seoul</p>
+        <h1 id="hero-title">An AI-native startup<br>that ships hardware.</h1>
+        <p class="lede">Rack Labs makes RackTracker, a physical product for gyms: an edge device with three cameras and an NVIDIA Jetson that mounts on the power rack, and the software that turns every set into biomechanical feedback. We build all of it with Claude Code, and we open-source the tools we make along the way.</p>
         <div class="cta">
-          <a class="btn" href="#racktracker">Learn more</a>
-          <a class="btn ghost" href="#contact">Contact</a>
+          <a class="btn" href="#racktracker">RackTracker</a>
+          <a class="btn ghost" href="#open-source">Open source</a>
         </div>
       </div>
       <div class="cue" aria-hidden="true"><i></i>scroll</div>
@@ -48,28 +49,33 @@
     <section class="wing" id="racktracker" aria-labelledby="rt-title">
       <div class="head">
         <h2 id="rt-title">RackTracker</h2>
-        <p>A 3D motion-analysis device that mounts on the power rack</p>
+        <p>Our main business. The rack that measures the lift.</p>
       </div>
       <div class="cols">
         <div class="text">
-          <p class="lede">Three global-shutter cameras fixed to the rack fire on one electrical trigger. The joints found in each view are intersected from three directions, and when one view is occluded the other two carry it, which gives cm-level 3D coordinates.</p>
+          <p class="lede">RackTracker is our main business, and it is a physical product: a hardware edge device and the software that runs on it, supplied and installed as one unit per power rack. The device is three global-shutter cameras and an NVIDIA Jetson fixed to the rack.</p>
+          <p>The cameras fire on one electrical trigger. The joints found in each view are intersected from three directions, and when one view is occluded the other two carry it, which gives cm-level 3D coordinates.</p>
           <p>Every set is logged as center-of-mass shift, left-right asymmetry, trunk lean and squat depth, and handed back to the member and the trainer. Thresholds are set per person from body proportions.</p>
           <p>Because the setup never changes, a new session compares with the last one on the same footing. Processing finishes on the computer beside the rack, on a closed network, so member video never leaves the gym.</p>
           <dl class="facts">
+            <div><dt>What we supply</dt><dd>Edge device + software<small>one unit per rack, installed by us</small></dd></div>
             <div><dt>Shutter skew across three cameras</dt><dd>0.12 ms<small>measured with a logic analyzer</small></dd></div>
             <div><dt>Joints recovered with three cameras</dt><dd>70%<small>CMU Panoptic. Standard triangulation: 40%</small></dd></div>
             <div><dt>Joint position error</dt><dd>~3 cm<small>the same as with two cameras</small></dd></div>
             <div><dt>Where processing runs</dt><dd>NVIDIA Jetson beside the rack<small>closed network, no video leaves the gym</small></dd></div>
           </dl>
+          <div class="cta">
+            <a class="btn" href="/business-plan/">Read the business plan</a>
+          </div>
         </div>
         <div class="figs">
-          <figure class="sheet">
-            <img src="assets/demo.webp" width="322" height="292" alt="Analysis view of a squat at the bottom position with joint angles and load markers drawn over the lifter" />
+          <figure class="sheet tall">
+            <img src="assets/demo-hd.webp" width="371" height="597" alt="Analysis view of a squat at the bottom position: joint angles, per-joint load and the center-of-mass line drawn over the lifter" />
             <figcaption>Figure 1. Joint load and center-of-mass analysis.</figcaption>
           </figure>
           <figure class="sheet">
-            <img src="assets/hardware.webp" width="200" height="190" alt="Two camera modules wired to a hand-built trigger board on the edge rig" />
-            <figcaption>Figure 2. Trigger board and Jetson edge rig.</figcaption>
+            <img src="assets/photo/jetson-rig.webp" width="960" height="720" alt="NVIDIA Jetson compute unit on the bench with the trigger board and camera modules wired to it" />
+            <figcaption>Figure 2. Jetson edge rig with the trigger board.</figcaption>
           </figure>
         </div>
       </div>
@@ -79,6 +85,57 @@
         <li><span class="when">H1 2027</span><span class="what">Gym pilot</span></li>
         <li><span class="when">H2 2027</span><span class="what">Production unit</span></li>
       </ol>
+    </section>
+
+    <section class="wing" id="prototype" aria-labelledby="pt-title">
+      <div class="head">
+        <h2 id="pt-title">Prototype</h2>
+        <p>Photographed 17 September 2026 on the PVC rack mock-up</p>
+      </div>
+      <div class="photos">
+        <figure>
+          <img src="assets/photo/rig.webp" width="720" height="960" alt="PVC power-rack mock-up in a lab room with three cameras clamped to the uprights and a tablet on the bench" loading="lazy" decoding="async" />
+          <figcaption>PVC rack mock-up, three cameras mounted</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/photo/rig-board.webp" width="720" height="960" alt="ChArUco calibration board leaning on the rig beside a laptop running the kiosk" loading="lazy" decoding="async" />
+          <figcaption>Calibration board on the rig</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/photo/kiosk-camera.webp" width="633" height="960" alt="Live camera view in the kiosk with a green grid while a person holds the calibration board" loading="lazy" decoding="async" />
+          <figcaption>Kiosk camera view during calibration</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/photo/trigger-board.webp" width="720" height="960" alt="Hand-built trigger board on a breadboard, held over the Jetson with its jumper wires" loading="lazy" decoding="async" />
+          <figcaption>Trigger board, one pulse to three cameras</figcaption>
+        </figure>
+        <figure class="wide">
+          <img src="assets/photo/jetson-rig.webp" width="960" height="720" alt="NVIDIA Jetson compute unit on the bench with the trigger board and camera modules wired to it" loading="lazy" decoding="async" />
+          <figcaption>Jetson edge unit, cameras and trigger wiring</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/photo/carrier-board.webp" width="720" height="960" alt="Jetson module with its heatsink on the carrier board, case opened on the bench" loading="lazy" decoding="async" />
+          <figcaption>Jetson module on the carrier board</figcaption>
+        </figure>
+        <dl class="parts" aria-label="Prototype parts">
+          <div><dt>Cameras</dt><dd>3 AR0234 global-shutter sensors, 120-degree low-distortion lens</dd></div>
+          <div><dt>Compute</dt><dd>NVIDIA Jetson, TensorRT inference</dd></div>
+          <div><dt>Trigger</dt><dd>Hand-built board, one pulse to all three cameras</dd></div>
+          <div><dt>Mock-up</dt><dd>PVC power rack, cameras on magic arms</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="wing" id="open-source" aria-labelledby="os-title">
+      <div class="head">
+        <h2 id="os-title">Open source</h2>
+        <p>Tools we build along the way, published for other teams</p>
+      </div>
+      <p class="lede">Two projects come out of building RackTracker with Claude Code. pipeplot is live now, and its code will be released as open source. agent-workflow-kit is already on GitHub under the MIT license.</p>
+      <dl class="facts" aria-label="Open-source projects">
+        <div><dt><a href="#pipeplot">pipeplot</a></dt><dd>Open-source release planned<small>live at pipeplot.pages.dev</small></dd></div>
+        <div><dt><a href="#agent-workflow-kit">agent-workflow-kit</a></dt><dd>MIT, v0.2.13<small>github.com/lhk0721/agent-workflow-kit</small></dd></div>
+      </dl>
     </section>
 
     <section class="pp" id="pipeplot" aria-labelledby="pp-title">
@@ -116,10 +173,10 @@
       </div>
       <div class="veil" aria-hidden="true"></div>
       <div class="copy">
-        <p class="kicker">pipeplot</p>
+        <p class="kicker">pipeplot, open-source release planned</p>
         <h2 id="pp-title">Neural networks,<br>built layer by layer<br>in walkable space.</h2>
         <p class="lede">One page per model. Model pages stand real trained weights and activations up in 3D space, and concept pages stack scenes in the order one person came to understand the idea.</p>
-        <p class="lede">Four models so far, AlexNet, VGG-16, GoogLeNet and ResNet-34, plus concept pages. It is growing into a place to learn ML and DL, and a community around it.</p>
+        <p class="lede">Four models so far, AlexNet, VGG-16, GoogLeNet and ResNet-34, plus concept pages. It is growing into a place to learn ML and DL, and a community around it. The code will be released as open source.</p>
         <div class="cta">
           <a class="btn" href="https://pipeplot.pages.dev" rel="noopener">Open pipeplot</a>
           <a class="btn ghost" href="https://pipeplot.pages.dev/#models" rel="noopener">See the models</a>
@@ -130,7 +187,7 @@
     <section class="wing" id="agent-workflow-kit" aria-labelledby="awk-title">
       <div class="head">
         <h2 id="awk-title">agent-workflow-kit</h2>
-        <p>A workflow, a Markdown document store and backstops for repositories where Claude Code does the work</p>
+        <p>Open source under MIT. A workflow, a Markdown document store and backstops for repositories where Claude Code does the work</p>
       </div>
       <div class="cols">
         <div class="text">
@@ -158,12 +215,13 @@
   <footer class="foot" id="contact">
     <div class="who">
       <p class="brand">Rack Labs</p>
-      <p>A hardware and AI startup at the prototype stage. We build a device that measures the lift, and we publish the way we build with AI.</p>
+      <p>An AI-native startup at the prototype stage. Our main business is RackTracker, a hardware edge device and its software supplied as one physical product. We build everything with Claude Code and open-source the tools we make along the way.</p>
     </div>
     <dl class="contact">
       <div><dt>Founder</dt><dd>Hunkun Lee</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:dlgusrb6546@racktracker.dev">dlgusrb6546@racktracker.dev</a> <button class="copybtn" type="button" data-copy="dlgusrb6546@racktracker.dev">Copy address</button></dd></div>
       <div><dt>GitHub</dt><dd><a href="https://github.com/lhk0721" rel="noopener">github.com/lhk0721</a></dd></div>
+      <div><dt>Documents</dt><dd><a href="/business-plan/">Business plan</a> <span class="alt">(<a href="/business-plan/ko/" hreflang="ko" lang="ko">한국어 원문</a>)</span></dd></div>
     </dl>
     <dl class="reg" aria-label="Business registration">
       <div><dt>Business name</dt><dd>랙랩스 (RackLabs)</dd></div>
@@ -172,7 +230,7 @@
       <div><dt>Address</dt><dd>14 Pobangteo 6-gil, Seodaemun-gu, Seoul (서울특별시 서대문구 포방터6길 14, 홍은동)</dd></div>
       <div><dt>Industry</dt><dd>Information and communications (정보통신업)</dd></div>
     </dl>
-    <p class="fine">All three products are built with Claude Code. 2026 Rack Labs</p>
+    <p class="fine">Everything we ship is built with Claude Code. 2026 Rack Labs</p>
   </footer>
 
   <script>

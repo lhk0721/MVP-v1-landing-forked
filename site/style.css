@@ -27,6 +27,8 @@
 }
 
 html { scroll-behavior: smooth; }
+/* anchor targets stop below the sticky bar */
+[id] { scroll-margin-top: 72px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -156,7 +158,21 @@ img, video { display: block; max-width: 100%; height: auto; }
 .text p + p { margin-top: 16px; }
 .text > p:not(.lede) { max-width: 54ch; color: var(--dim); }
 .figs { display: grid; gap: 20px; }
-.figs .sheet:nth-child(2) { max-width: 320px; }
+.figs .sheet.tall { max-width: 360px; }
+
+/* prototype photos: real photographs sit straight on the dark page, no
+   sheet, since the sheet marks a drawing. One row of four portraits, then
+   the bench photo across two columns, a close-up and the parts list. */
+.photos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px 16px; }
+.photos figure { margin: 0; }
+.photos img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--line); background: var(--bg2); }
+.photos .wide { grid-column: span 2; }
+.photos .wide img { aspect-ratio: 3 / 2; }
+.photos figcaption { margin-top: 8px; font: 12px/1.5 var(--mono); color: var(--muted); }
+.photos .parts { margin: 0; padding: 0; border-top: 1px solid var(--line); align-self: start; }
+.photos .parts > div { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.photos .parts dt { font: 12px/1.4 var(--mono); color: var(--muted); }
+.photos .parts dd { margin: 2px 0 0; font-size: 14px; line-height: 1.5; color: var(--dim); }
 
 /* facts: a definition list with hairlines, value large */
 .facts { margin: 36px 0 0; padding: 0; border-top: 1px solid var(--line); max-width: 560px; }
@@ -165,6 +181,8 @@ img, video { display: block; max-width: 100%; height: auto; }
   padding: 14px 0; border-bottom: 1px solid var(--line);
 }
 .facts dt { margin: 0; color: var(--dim); font-size: 14px; }
+.facts dt a { color: var(--ink); }
+.facts dt a:hover { color: var(--tint); }
 .facts dd { margin: 0; text-align: right; color: var(--ink); font-size: 22px; line-height: 1.2; font-variation-settings: 'wdth' 90; }
 .facts dd small { display: block; margin-top: 4px; font: 12px/1.4 var(--mono); color: var(--muted); }
 
@@ -225,6 +243,7 @@ img, video { display: block; max-width: 100%; height: auto; }
 .foot .contact dt { margin: 0; color: var(--muted); font-size: 14px; }
 .foot .contact dd { margin: 0; color: var(--ink); font-size: 15px; overflow-wrap: anywhere; }
 .foot .contact a:hover { color: var(--tint); }
+.foot .contact .alt { color: var(--muted); font-size: 13px; }
 .foot .copybtn {
   margin-left: 10px; padding: 4px 10px; cursor: pointer;
   font: 500 12px/1 var(--display); color: var(--dim);
@@ -258,11 +277,12 @@ img, video { display: block; max-width: 100%; height: auto; }
   .timeline li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 12px 0 12px 16px; border-top: 0; border-left: 1px solid var(--line); }
   .timeline li::before { top: 18px; left: -4px; }
   .timeline .when { margin: 0; }
-  .figs .sheet:nth-child(2) { max-width: none; }
+  .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
   /* the bar wraps to two lines and stops overlaying the hero */
   .bar { flex-wrap: wrap; height: auto; margin-bottom: 0; padding: 14px var(--gutter) 12px; row-gap: 10px; }
+  [id] { scroll-margin-top: 120px; }
   .bar nav { width: 100%; flex-wrap: wrap; white-space: normal; overflow: visible; gap: 6px 18px; font-size: 12px; }
   .hero { padding-top: 24px; }
   .facts > div { grid-template-columns: 1fr; }
