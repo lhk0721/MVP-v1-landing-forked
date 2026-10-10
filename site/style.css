@@ -90,9 +90,11 @@ img, video { display: block; max-width: 100%; height: auto; }
   font-size: 13px; line-height: 1.5; color: var(--sheet-dim);
 }
 
-/* hero: the rig drawing is the background (assets/rig-dark.webp, the
-   business-plan figure recoloured for the dark page); the veil keeps the
-   copy legible over it */
+/* hero: the background is a loop of the post-processed MHR body from a
+   real set on the prototype rig (assets/hero-mhr-*.webm/mp4, poster
+   hero-mhr.webp), rendered on the page colour with its own floor grid. A
+   radial mask fades the frame edges into the page so no rectangle shows,
+   and the veil keeps the copy legible over it */
 .hero {
   position: relative; min-height: 100svh; box-sizing: border-box;
   display: grid; grid-template-columns: 1fr; align-items: end;
@@ -104,24 +106,19 @@ img, video { display: block; max-width: 100%; height: auto; }
   display: flex; justify-content: flex-end; align-items: center;
   padding: 72px calc(var(--gutter) * .5) 0 0;
 }
-.hero .poster img {
+.hero .poster img, .hero .poster video {
   width: min(64vw, 118vh); max-width: 1180px; height: auto; opacity: .92;
+}
+.hero .poster video {
+  aspect-ratio: 6 / 5; object-fit: cover; background: var(--bg);
+  -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 62%, transparent 100%);
 }
 .hero .veil {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
     linear-gradient(180deg, rgba(11,13,16,.5) 0%, rgba(11,13,16,0) 28%, rgba(11,13,16,0) 58%, rgba(11,13,16,.9) 100%),
     linear-gradient(90deg, rgba(11,13,16,.75) 0%, rgba(11,13,16,.25) 45%, rgba(11,13,16,0) 70%);
-}
-.hero::before {
-  /* the faint grid of the rig drawing, carried onto the page */
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image:
-    linear-gradient(var(--bg2) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bg2) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(180deg, rgba(0,0,0,.9), transparent 85%);
-  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9), transparent 85%);
 }
 .hero .copy { max-width: 880px; }
 .hero h1 {
@@ -264,14 +261,13 @@ img, video { display: block; max-width: 100%; height: auto; }
 
 /* narrow screens */
 @media (max-width: 900px) {
-  .hero { min-height: 92svh; padding-top: 88px; }
-  .hero .poster { align-items: flex-start; justify-content: center; padding: 84px 0 0; }
-  .hero .poster img { width: min(96vw, 60vh); opacity: .8; }
-  .hero .veil {
-    background:
-      linear-gradient(180deg, rgba(11,13,16,.2) 0%, rgba(11,13,16,0) 20%, rgba(11,13,16,.6) 45%, rgba(11,13,16,.96) 70%);
-  }
-  .hero .cue { display: none; }
+  /* narrow screens: the loop sits above the copy in flow instead of behind
+     it, cropped square so the body reads at phone width; no veil needed */
+  .hero { min-height: 0; display: block; padding-top: 88px; }
+  .hero .poster { position: static; display: block; width: min(92vw, 56vh); margin: 0 auto 8px; padding: 0; }
+  .hero .poster img, .hero .poster video { width: 100%; max-width: none; opacity: .95; }
+  .hero .poster video { aspect-ratio: 1 / 1; object-position: 50% 45%; }
+  .hero .veil, .hero .cue { display: none; }
   .cols, .foot { grid-template-columns: 1fr; }
   .timeline { grid-template-columns: 1fr; gap: 0; }
   .timeline li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 12px 0 12px 16px; border-top: 0; border-left: 1px solid var(--line); }

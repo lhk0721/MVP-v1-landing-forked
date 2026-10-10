@@ -9,7 +9,7 @@
   <meta property="og:title" content="Rack Labs" />
   <meta property="og:description" content="An AI-native startup that ships hardware. RackTracker, and the open-source tools pipeplot and agent-workflow-kit." />
   <meta property="og:url" content="https://racktracker.dev/" />
-  <meta property="og:image" content="https://racktracker.dev/assets/rig.png" />
+  <meta property="og:image" content="https://racktracker.dev/assets/og.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3.5' y='2.5' width='9' height='11' fill='none' stroke='%239aa4b2'/%3E%3Ccircle cx='3.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='12.5' cy='4' r='1.7' fill='%23e6eaf0'/%3E%3Ccircle cx='8' cy='13.5' r='1.7' fill='%23e6eaf0'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,7 +31,29 @@
   <main id="top">
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="poster" aria-hidden="true">
-        <img src="assets/rig-dark.webp" width="501" height="423" alt="" decoding="async" />
+        <video id="hero-video" muted loop playsinline disablepictureinpicture preload="none" poster="assets/hero-mhr.webp" width="1440" height="1200"></video>
+        <script>
+          // The hero plays the post-processed MHR body of a real set recorded
+          // on the prototype rig (5 October 2026), rendered from the same mesh
+          // the kiosk's playback screen draws. Two rungs: 2160 px wide for
+          // wide screens, 1080 for narrow ones. Reduced motion keeps the
+          // poster, and the loop pauses while the hero is scrolled away.
+          (function () {
+            var v = document.getElementById('hero-video');
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var rung = matchMedia('(max-width: 900px)').matches ? 'hero-mhr-1080' : 'hero-mhr-2160';
+            [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (t) {
+              var s = document.createElement('source');
+              s.src = 'assets/' + rung + '.' + t[0]; s.type = t[1]; v.appendChild(s);
+            });
+            v.preload = 'auto';
+            var play = function () { v.play().catch(function () {}); };
+            if (!('IntersectionObserver' in window)) { play(); return; }
+            new IntersectionObserver(function (es) {
+              es.forEach(function (e) { if (e.isIntersecting) play(); else v.pause(); });
+            }, { threshold: 0.05 }).observe(v);
+          })();
+        </script>
       </div>
       <div class="veil" aria-hidden="true"></div>
       <div class="copy">
